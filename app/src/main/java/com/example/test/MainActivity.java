@@ -1,14 +1,17 @@
 package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +19,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.example.test.myrequest.MyRequest;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private Button btn_enter, leader_board;
     private EditText userName;
 
@@ -24,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+
 
         leader_board = findViewById(R.id.leader_board);
         btn_enter = (Button) findViewById(R.id.btn_submit);
@@ -56,5 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 }

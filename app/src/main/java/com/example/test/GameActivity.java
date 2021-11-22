@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,38 +28,13 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Constants.SCREEN_WIDTH = dm.widthPixels;
+        Constants.SCREEN_HEIGHT = dm.heightPixels;
         setContentView(R.layout.activity_game);
 
-        ushi = findViewById(R.id.image_increase);
-        submit_btn = findViewById(R.id.btn_submit2);
-        queue = VolleySingleton.getInstance(this).getRequestQueue();
-        request = new MyRequest(this, queue);
-        userName = getIntent().getStringExtra("keypseudo");
-        numberText = findViewById(R.id.number_text);
-        i = 0;
 
-        ushi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                i++;
-                numberText.setText(String.valueOf(i));
-            }
-        });
-
-        submit_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int number = Integer.parseInt(String.valueOf(numberText.getText()));
-                request.register(userName, number);
-
-
-
-                Intent i = new Intent(getApplicationContext(),OtherActivity.class);
-                i.putExtra("keypseudo",userName);
-                i.putExtra("keyvalue",number);
-                startActivity(i);
-                finish();
-            }
-        });
     }
 }
