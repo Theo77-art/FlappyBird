@@ -24,11 +24,14 @@ private float drop;
     }
 
     public void draw(Canvas canvas) {
+        drop();
         canvas.drawBitmap(this.getBm(), this.x,this.y, null);
 
     }
     private void drop(){
         this.drop+=0.6;
+        this.y+=this.drop;
+
     }
 
     public ArrayList<Bitmap> getArrBms() {
