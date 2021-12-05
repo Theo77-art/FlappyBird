@@ -136,7 +136,7 @@ public class GameView extends View {
 
                 {
                     score++;
-                    if(score<bestscore){
+                    if(score>bestscore){
                         bestscore=score;
                         SharedPreferences sp =context.getSharedPreferences("gamesetting",Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();

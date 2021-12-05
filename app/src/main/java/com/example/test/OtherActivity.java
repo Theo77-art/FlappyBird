@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,10 +28,10 @@ import java.util.List;
 
 public class OtherActivity extends AppCompatActivity {
     //private MyRequest request;
-    private Button testBtn;
-    RecyclerView recyclerView;
+    private Button retourBtn;
+   RecyclerView recyclerView;
     Adapter adapter;
-    String url = "https://test-android-php.000webhostapp.com/users.json";
+    String url = "http://192.168.1.79/java/json/users.json";
     List<Users> users;
 
     @Override
@@ -39,8 +40,18 @@ public class OtherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_other);
 
         recyclerView = findViewById(R.id.recycler_view);
+        retourBtn = findViewById(R.id.retour_btn);
         users = new ArrayList<>();
         getScores();
+
+        retourBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
 
 
@@ -51,22 +62,28 @@ public class OtherActivity extends AppCompatActivity {
         JsonArrayRequest json = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                //Log.d("ERRORRRR", "Test");
+                Log.d("ERRORRRR", String.valueOf(response));
                 for (int i = 0; i < response.length(); i++) {
                     //Log.d("ERRORRRR", "In the loop");
                     int j = i+1;
+                    try {
+                        Log.d("ERRORRRR", String.valueOf(response.getJSONObject(i)));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         //Log.d("ERRORRRR", "success" + i);
                         JSONObject userObj = response.getJSONObject(i);
                         Users user = new Users();
                         user.setPosition(j);
                         user.setNameUser(userObj.getString("name").toString());
-                        user.setScoreUser(userObj.getInt("number"));
+                        user.setScoreUser(userObj.getInt("score"));
 
-                        //Log.d("ERRORRRR", "success creating view");
+                        Log.d("ERRORRRR", "success creating view");
                         users.add(user);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("ERRORRRR", "error creating view");
                     }
                 }
                 //Log.d("ERRORRRR", "success for the loop");

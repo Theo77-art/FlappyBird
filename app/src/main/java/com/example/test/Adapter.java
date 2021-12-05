@@ -15,7 +15,7 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     LayoutInflater inflater;
     List<Users> users;
-    //int i = 0;
+    int i = 0;
 
     public Adapter(Context ctx, List<Users> users) {
         this.inflater = LayoutInflater.from(ctx);
@@ -42,7 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public int getItemCount() {
 
         Log.d("ItemCount: ", "From item count");
-        return 10;
+        return users.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -41,8 +41,8 @@ public class MyRequest {
         this.queue = queue;
     }
 
-    public void register(String name, int number) {
-        String url = "https://test-android-php.000webhostapp.com/";
+    public void register(String pseudo, int value) {
+        String url = "http://192.168.1.79/java/php/index.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -66,8 +66,8 @@ public class MyRequest {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> map = new HashMap<>();
-                map.put("name", name);
-                map.put("number", String.valueOf(number));
+                map.put("name", pseudo);
+                map.put("score", String.valueOf(value));
 
                 //Log.i("Values", String.valueOf(map));
                 return map;
@@ -78,7 +78,7 @@ public class MyRequest {
     }
 
     public void getScores() {
-        String url = "https://test-android-php.000webhostapp.com/users.json";
+        String url = "http://192.168.1.79/java/json/users.json";
         recyclerView = recyclerView.findViewById(R.id.recycler_view);
         users = new ArrayList<>();
 
@@ -90,8 +90,8 @@ public class MyRequest {
                     try {
                         JSONObject userObject = response.getJSONObject(i);
                         Users user = new Users();
-                        user.setNameUser(userObject.getString("name").toString());
-                        user.setScoreUser(Integer.parseInt(userObject.getString("number").toString()));
+                        user.setNameUser(userObject.getString("pseudo").toString());
+                        user.setScoreUser(Integer.parseInt(userObject.getString("value").toString()));
 
                         users.add(user);
                     } catch (JSONException e) {
